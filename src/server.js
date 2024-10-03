@@ -1,7 +1,7 @@
 const express = require('express')
 const path= require('path');// commonjs
 require('dotenv').config()
-const mysql = require('mysql2');
+const connection=require("./config/database")
 const configViewEngine = require("./config/viewEngine")
 const webRoutes = require("./routes/web")
 
@@ -15,18 +15,7 @@ configViewEngine(app)
 app.use(express.static(path.join(__dirname,'public')))
 
 app.use('/',webRoutes)
-// Get the client
 
-
-
-// Create the connection to database
-const connection = mysql.createConnection({
-  host: 'localhost',
-  port: 3307,
-  user: 'root',
-  password:'Letienkhoi1710',
-  database: 'backendtest',
-});
 
 connection.query(
   'select * from Users ',
