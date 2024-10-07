@@ -10,6 +10,10 @@ const port =  process.env.PORT
 const hostname= process.env.HOST_NAME
 
 
+app.use(express.json()) // for json
+app.use(express.urlencoded({ extended: true })) // for form data
+
+
 configViewEngine(app)
 
 app.use(express.static(path.join(__dirname,'public')))
@@ -17,13 +21,7 @@ app.use(express.static(path.join(__dirname,'public')))
 app.use('/',webRoutes)
 
 
-connection.query(
-  'select * from Users ',
-  function (err, results, fields) {
-    console.log(">>>>result=",results); // results contains rows returned by server
-    console.log(">>> fields=",fields); // fields contains extra meta data about results, if available
-  }
-);
+
 
 app.listen(port, hostname, () => {
   console.log(`Example app listening on port ${port}`)
