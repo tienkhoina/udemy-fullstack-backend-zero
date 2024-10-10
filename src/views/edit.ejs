@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    
     <div class="topnav">
         <a class="active" href="/">Home</a>
         <a href="/create-user">Create-user</a>
@@ -14,19 +15,24 @@
         <form action="/update" method="post">
         <fieldset>
             <legend>Form edit users</legend>
+            <div class="input-group d-none">
+                <label> Id: </label>
+                <input type ="text" name="id" value="<%= userEdit.id%>"/>
+    
+                </div>
             <div class="input-group">
             <label> Email: </label>
-            <input type ="text" name="email" />
+            <input type ="text" name="email" value="<%= userEdit.email%>"/>
 
             </div>
             <div class="input-group">
             <label> Name: </label>
-            <input type ="text" name="name"/>
+            <input type ="text" name="name" value="<%= userEdit.name%>"/>
         
             </div>
             <div class="input-group">
             <label> City: </label>
-            <input type ="text" name="city" />
+            <input type ="text" name="city"  value="<%= userEdit.city%>"/>
         
             </div>
             <div>

@@ -1,6 +1,6 @@
 const { json } = require('express');
 const connection = require('D:\\backendtest\\src\\config\\database.js')
-const {getAllUser}=require('../services/CRUDService')
+const {getAllUser, getUserId}=require('../services/CRUDService')
 
 const getHomepage = async(req,res)=>{
     let results = await getAllUser();
@@ -46,9 +46,34 @@ const createUser = async (req,res)=>{
     
 }
 
-const getUpdate = (req,res)=>{
-    res.render('edit.ejs');
+const getUpdate = async (req,res)=>{
+    const userId=req.params.id
+
+    let user = await getUserId(userId)
+
+    res.render('edit.ejs',{userEdit : user});
+
+}
+
+const update =async (req,res)=>{
+    console.log("req.body:",req.body)
+    let id=req.body.id
+    let email=req.body.email
+    let name=req.body.name
+    let city=req.body.city
+
+    
+    let [results,fields]=await connection.query(
+        `update Users
+         set email=?,name=?,city=?
+         where id=? `,
+        [email, name, city,id],
+    )
+
+    console.log('Data inserted successfully:', results);
+
+    return res.send("update users success")
 }
 module.exports={
-    getHomepage, getTest,getRender,createUser,getCreateUser,getUpdate
+    getHomepage, getTest,getRender,createUser,getCreateUser,getUpdate,update
 }
