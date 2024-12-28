@@ -54,6 +54,13 @@ const getUpdate = async (req,res)=>{
     res.render('edit.ejs',{userEdit : user});
 
 }
+const getDelete = async (req,res)=>{
+    const userId = req.params.id
+
+    let user = await getUserId(userId)
+
+    res.render('delete.ejs',{userDelete : user})
+}
 
 const update =async (req,res)=>{
     console.log("req.body:",req.body)
@@ -74,6 +81,25 @@ const update =async (req,res)=>{
 
     return res.send("update users success")
 }
+
+
+const deleteuser = async (req,res)=>{
+    console.log("req.body:",req.body)
+    let id=req.body.id
+    let email=req.body.email
+    let name=req.body.name
+    let city=req.body.city
+
+    
+    let [results,fields]=await connection.query(
+        `delete from Users where id=? `,
+        [id],
+    )
+
+
+    return res.send("delete users success")
+}
+
 module.exports={
-    getHomepage, getTest,getRender,createUser,getCreateUser,getUpdate,update
+    getHomepage, getTest,getRender,createUser,getCreateUser,getUpdate,update,getDelete,deleteuser
 }
